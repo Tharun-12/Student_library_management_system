@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="card")
@@ -34,7 +35,13 @@ public class Card
 
     @OneToOne
     @JoinColumn
-    Student studentVariableName;
+    private Student studentVariableName; // This variable is used in parent class.
+    // While doing Bidirectional Mapping.
+
+
+    // Card is a parent wrt to book
+    @OneToMany(mappedBy = "card",cascade = CascadeType.ALL)
+    List<Book> BooksIssued;
 
     public Student getStudentVariableName() {
         return studentVariableName;
