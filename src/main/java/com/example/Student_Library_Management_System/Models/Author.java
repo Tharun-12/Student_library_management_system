@@ -26,11 +26,10 @@ public class Author
   // Part of bidirectional Mapping
 
   @OneToMany(mappedBy ="",cascade =CascadeType.ALL)
-  List<Book> booksWritten  = new ArrayList<>();
+  List<Book> booksWritten;
 
-  public Author()
-  {
-
+  public Author() {
+    this.booksWritten = new ArrayList<>();
   }
 
   public int getId() {

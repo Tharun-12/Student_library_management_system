@@ -1,5 +1,7 @@
 package com.example.Student_Library_Management_System.Services;
 
+
+import com.example.Student_Library_Management_System.DTOs.BookRequestDto;
 import com.example.Student_Library_Management_System.Models.Author;
 import com.example.Student_Library_Management_System.Models.Book;
 import com.example.Student_Library_Management_System.StudentRepository.AuthorRepository;
@@ -13,16 +15,22 @@ public class BookService
 {
     @Autowired
     AuthorRepository authorRepository;
-    public String addBook(Book book)
+    public String addBook(BookRequestDto bookRequestDto)
     {
         // I want to get Entity
-        int authorId = book.getAuthor().getId();
+        int authorId = bookRequestDto.getAuthorId();
 
         // Now I will fetching the authorEntity
 
         Author author= authorRepository.findById(authorId).get();
 
         //setting the foriegn key attr child class
+
+        Book book = new Book();
+        book.setGenre(bookRequestDto.getGenre());
+        book.setIssued(false);
+        book.setName(bookRequestDto.getName());
+        book.setPages(bookRequestDto.getPages());
 
         book.setAuthor(author);
 
@@ -42,6 +50,6 @@ public class BookService
 
         //.save function works both save and update function.
 
-        return "Book added Sucessfully";
+        return "Book added Successfully";
     }
 }

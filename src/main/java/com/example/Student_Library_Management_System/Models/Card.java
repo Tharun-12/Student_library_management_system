@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +42,29 @@ public class Card
 
     // Card is a parent wrt to book
     @OneToMany(mappedBy = "card",cascade = CascadeType.ALL)
-    List<Book> BooksIssued;
+    List<Book> booksIssued = new ArrayList<>();
+
+    // Connection card class to transaction
+    //Bidirectional Mapping
+
+    @OneToMany(mappedBy = "card",cascade=CascadeType.ALL)
+    private List<Transactions> transactions = new ArrayList<>();
+
+    public List<Book> getBooksIssued() {
+        return booksIssued;
+    }
+
+    public void setBooksIssued(List<Book> booksIssued) {
+        this.booksIssued = booksIssued;
+    }
+
+    public List<Transactions> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transactions> transactions) {
+        this.transactions = transactions;
+    }
 
     public Student getStudentVariableName() {
         return studentVariableName;
@@ -87,4 +110,7 @@ public class Card
     public void setCardStatus(CardStatus cardStatus) {
         this.cardStatus = cardStatus;
     }
+
+
+
 }
